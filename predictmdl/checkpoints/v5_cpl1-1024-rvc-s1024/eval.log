@@ -1,0 +1,126 @@
+random seed is: 1666
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.814516
+Total :: test recall: 0.823077
+Total :: test precision: 0.789459
+2.8351030349731445
+random seed is: 3660
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.822581
+Total :: test recall: 0.835897
+Total :: test precision: 0.799087
+1.1961748600006104
+random seed is: 9653
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.798387
+Total :: test recall: 0.797436
+Total :: test precision: 0.770285
+1.598799705505371
+random seed is: 5630
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.814516
+Total :: test recall: 0.823077
+Total :: test precision: 0.789459
+1.162125825881958
+random seed is: 4101
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.803318
+Total :: test precision: 0.777839
+1.2081506252288818
+random seed is: 7967
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.810256
+Total :: test precision: 0.779864
+1.1761713027954102
+random seed is: 5217
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.830645
+Total :: test recall: 0.841780
+Total :: test precision: 0.806216
+1.1506462097167969
+random seed is: 1061
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.810256
+Total :: test precision: 0.779864
+1.1696317195892334
+random seed is: 3660
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.822581
+Total :: test recall: 0.835897
+Total :: test precision: 0.799087
+1.179924726486206
+random seed is: 9653
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.798387
+Total :: test recall: 0.797436
+Total :: test precision: 0.770285
+1.512765884399414
+random seed is: 5630
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.814516
+Total :: test recall: 0.823077
+Total :: test precision: 0.789459
+1.2099111080169678
+random seed is: 4101
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.803318
+Total :: test precision: 0.777839
+1.1764910221099854
+random seed is: 7967
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.810256
+Total :: test precision: 0.779864
+1.1930646896362305
+random seed is: 5217
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.830645
+Total :: test recall: 0.841780
+Total :: test precision: 0.806216
+1.550748348236084
+random seed is: 1061
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.810256
+Total :: test precision: 0.779864
+1.4145758152008057
+random seed is: 3660
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.822581
+Total :: test recall: 0.835897
+Total :: test precision: 0.799087
+1.1877548694610596
+random seed is: 9653
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.798387
+Total :: test recall: 0.797436
+Total :: test precision: 0.770285
+1.1816928386688232
+random seed is: 5630
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.814516
+Total :: test recall: 0.823077
+Total :: test precision: 0.789459
+1.353661298751831
+random seed is: 4101
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.803318
+Total :: test precision: 0.777839
+1.1716883182525635
+random seed is: 7967
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.806452
+Total :: test recall: 0.810256
+Total :: test precision: 0.779864
+1.1435961723327637
+random seed is: 5217
+Using GPU : 0 from 1 devices
+Total :: Test Acc: 0.830645
+Total :: test recall: 0.841780
+Total :: test precision: 0.806216
+1.1714985370635986
