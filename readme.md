@@ -103,7 +103,7 @@ cut_data_method: "voronoi_tessellation" #рекомендуется
 ## Презентация
 Обзор исследования вы можете посмотреть в **[презентации](about/Presentation.pdf)**:
 
-[![Presentation](about/pres.png)](about/Present ation.pdf)
+[![Presentation](about/pres.png)](about/Presentation.pdf)
 
 ## Установка и использование
 
