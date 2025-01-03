@@ -112,6 +112,12 @@ class PCD:
         self.points = dt[:,0:3]
         self.intensity = dt[:,3]
 
+    def append(self, other):
+        if not isinstance(other, PCD):
+            raise TypeError("Argument must be an instance of PCD")
+        self.points = np.concatenate((self.points, other.points), axis=0)
+        self.intensity = np.concatenate((self.intensity, other.intensity), axis=0)
+
     def visual_gif(self, path_gif, zoom = 0.4, point_size = 4.0):
         cloud = pyvista.PointSet(self.points)
         scalars = np.linalg.norm(cloud.points - cloud.center, axis=1)
