@@ -7,6 +7,7 @@ from tqdm import tqdm
 from classes.PCD_UTILS import PCD_UTILS
 import pandas as pd
 from settings.seg_settings import SS
+from settings.coord_settings import CS
 from shapely.geometry import Polygon
 
 
@@ -30,7 +31,7 @@ def make_binding_file(pc_area, ss):
     df.to_csv(path_csv, index=False, sep=';')
 
 
-def segmentation_vor(ss, make_binding = True):
+def segmentation_vor(ss, cs, make_binding = True):
     path_file_save = os.path.join(ss.path_base, ss.step1_folder_name)
     makedirs_if_not_exist(path_file_save)
 
@@ -44,6 +45,7 @@ def segmentation_vor(ss, make_binding = True):
 
     pc_area = PCD_AREA()
     pc_area.open(file_name_data, verbose = True)
+    pc_area.points = PCD_UTILS.shift(pc_area.points, cs.x_shift, cs.y_shift, cs.z_shift)
     pc_area.unique()
     pc_area.coordinates = coords
     try:
@@ -60,6 +62,7 @@ def segmentation_vor(ss, make_binding = True):
     
     if make_binding:
         make_binding_file(pc_area, ss)
+        print('done')
 
     i=0
     print("Start polygons processing ...")
@@ -116,6 +119,8 @@ def segmentation_vor(ss, make_binding = True):
 
 if __name__ == "__main__" :
     ss = SS()
-    yml_path = "settings\settings.yaml"
+    yml_path = "D:/lidar/data/orion/ex2/settings.yaml"
     ss.set(yml_path)
-    segmentation_vor(ss, make_binding = False)
+    cs = CS()
+    cs.set(yml_path)
+    segmentation_vor(ss, cs, make_binding = True)

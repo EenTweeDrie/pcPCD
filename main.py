@@ -559,7 +559,7 @@ class WidgetGallery(QWidget):
             self.textEdit.appendPlainText("Done processing Clear Excess Stumps")
 
         if self.checkBoxS1.isChecked():
-            segmentation_vor(ss, make_binding = True)
+            segmentation_vor(ss, cs, make_binding = True)
             self.textEdit.appendPlainText("Done processing Segmentation Voronoi")
         if self.checkBoxS2.isChecked():
             segmentation_ram(ss)
