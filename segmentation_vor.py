@@ -119,7 +119,7 @@ def segmentation_vor(ss, cs, make_binding = True):
 
 if __name__ == "__main__" :
     ss = SS()
-    yml_path = "D:/lidar/data/orion/ex2/settings.yaml"
+    yml_path = "D:/lidar/data/orion/ex3_1/settings.yaml"
     ss.set(yml_path)
     cs = CS()
     cs.set(yml_path)
