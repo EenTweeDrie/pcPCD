@@ -5,13 +5,12 @@ from classes.PCD_TREE import PCD_TREE
 import pandas as pd
 
 
-def parameters(ss, path_file, path_csv=None, K=0):
+def parameters(ss, path_file, K=0):
     param_name = ss.fname_points.partition('.')[0] + "_Parameters.csv"
     path_save = os.path.join(ss.path_base, param_name)
     mi = 0
-    if path_csv is None:
-        path_csv = os.path.join(
-            ss.path_base, ss.fname_points.split(".")[0] + "_res.csv")
+    path_csv = os.path.join(
+        ss.path_base, ss.fname_points.split(".")[0] + "_res.csv")
     df = pd.read_csv(path_csv, sep=';')
 
     names = []
@@ -35,14 +34,12 @@ def parameters(ss, path_file, path_csv=None, K=0):
 
     for fname in tqdm(os.listdir(path_file)):
         if fname.lower().endswith(('.pcd', '.txt', '.las', '.laz', '.h5')):
-            print(fname)
             mi += 1
             if mi < K:
                 continue
 
             pc_tree = PCD_TREE()
             pc_tree.open(os.path.join(path_file, fname))
-            print(pc_tree)
             pc_tree.RGBint = pc_tree.intensity/max(pc_tree.intensity)
 
             pc_tree.estimate_height()
@@ -51,9 +48,7 @@ def parameters(ss, path_file, path_csv=None, K=0):
             pc_slice = pc_tree.search_slice()
             pc_expsph = pc_tree.search_points_for_center(pc_slice)
             if pc_expsph.points.shape[0] > 10:
-                print(pc_expsph.points)
-                print(pc_slice.points)
-                pc_tree.estimate_diameter(pc_expsph, pc_slice, intensity_cut=0)
+                pc_tree.estimate_diameter(pc_expsph, pc_slice)
 
                 points_no_trunk = pc_tree.search_points_no_trunk()
                 if points_no_trunk.shape[0] > 0:

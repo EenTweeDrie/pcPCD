@@ -183,6 +183,28 @@ class PCD:
                 end = time()-start
                 print(f"Time saving: {end:.3f} s")
 
+        def save_h5(self, file_path, verbose=False):
+            """Save data to an HDF5 file."""
+            if verbose:
+                start = time()
+                print(f"Saving data to {file_path} ...")
+
+            with h5py.File(file_path, 'w') as h5f:
+                if self.points is not None:
+                    h5f.create_dataset('points', data=self.points)
+                if self.intensity is not None:
+                    h5f.create_dataset('intensity', data=self.intensity)
+                if self.rgb is not None:
+                    h5f.create_dataset('rgb', data=self.rgb)
+                if self.index is not None:
+                    h5f.create_dataset('index', data=self.index)
+                if self.gps_time is not None:
+                    h5f.create_dataset('gps_time', data=self.gps_time)
+
+            if verbose:
+                end = time() - start
+                print(f"Time saving data: {end:.3f} s")
+
         if file_path.endswith('.pcd'):
             save_pcd(self, file_path, verbose=verbose)
         elif file_path.endswith('.las'):
@@ -195,6 +217,8 @@ class PCD:
             save_csv(self, file_path, verbose=verbose)
         elif file_path.endswith('.txt'):
             save_txt(self, file_path, verbose=verbose)
+        elif file_path.endswith('.h5'):
+            save_h5(self, file_path, verbose=verbose)
         else:
             print("invalid format")
 
@@ -416,7 +440,7 @@ class PCD:
         """ sampling 'num_sample' points from 'PCD' class via farthest point sampling algorithm """
         start = time()
         if verbose:
-            end = time()-start
+            end = time() - start
             print(f"Time sampling (fps): {end:.3f} s")
         np_points = np.asarray([self.points])
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -425,16 +449,31 @@ class PCD:
         pt_sampled = points_torch[0][centroids[0]]
         centroids = centroids.cpu().data.numpy()
         int_sampled = self.intensity[centroids[0]]
+        rgb_sampled = self.rgb[centroids[0]]
+        index_sampled = self.index[centroids[0]]
+        gps_time_sampled = self.gps_time[centroids[0]]
         pt_sampled = pt_sampled.cpu().detach().numpy()
-        self.points, self.intensity = pt_sampled, int_sampled
+        self.points, self.intensity, self.rgb, self.index, self.gps_time = pt_sampled, int_sampled, rgb_sampled, index_sampled, gps_time_sampled
 
     def index_cut(self, idx_labels):
         """ cut points and intensity using indexes """
         self.points = self.points[idx_labels]
-        self.intensity = self.intensity[idx_labels]
-        self.index = self.index[idx_labels]
-        self.gps_time = self.gps_time[idx_labels]
-        self.rgb = self.rgb[idx_labels]
+        try:
+            self.intensity = self.intensity[idx_labels]
+        except:
+            self.intensity = None
+        try:
+            self.index = self.index[idx_labels]
+        except:
+            self.index = None
+        try:
+            self.gps_time = self.gps_time[idx_labels]
+        except:
+            self.gps_time = None
+        try:
+            self.rgb = self.rgb[idx_labels]
+        except:
+            self.rgb = None
 
     def get_normals(self):
         """ return normals """
@@ -450,13 +489,20 @@ class PCD:
         self.points, unique_indices = np.unique(
             self.points, axis=0, return_index=True)
         self.intensity = np.take(self.intensity, unique_indices)
+        self.rgb = np.take(self.rgb, unique_indices, axis=0)
+        self.index = np.take(self.index, unique_indices)
+        self.gps_time = np.take(self.gps_time, unique_indices)
 
     def concatenate(self, data):
-        dt = np.c_[self.points, self.intensity]
+        dt = np.c_[self.points, self.intensity,
+                   self.rgb, self.index, self.gps_time]
         dt = np.concatenate((dt, data), axis=0)
         dt = np.array(dt, dtype=np.float32)
         self.points = dt[:, 0:3]
         self.intensity = dt[:, 3]
+        self.rgb = dt[:, 4:7]
+        self.index = dt[:, 7]
+        self.gps_time = dt[:, 8]
 
     def append(self, other):
         if not isinstance(other, PCD):
@@ -464,6 +510,9 @@ class PCD:
         self.points = np.concatenate((self.points, other.points), axis=0)
         self.intensity = np.concatenate(
             (self.intensity, other.intensity), axis=0)
+        self.rgb = np.concatenate((self.rgb, other.rgb), axis=0)
+        self.index = np.concatenate((self.index, other.index), axis=0)
+        self.gps_time = np.concatenate((self.gps_time, other.gps_time), axis=0)
 
     def visual_gif(self, path_gif, zoom=0.4, point_size=4.0):
         cloud = pyvista.PointSet(self.points)
