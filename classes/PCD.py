@@ -549,11 +549,16 @@ class PCD:
         """ leaves only unique point values """
         self.points, unique_indices = np.unique(
             self.points, axis=0, return_index=True)
-        self.intensity = np.take(self.intensity, unique_indices)
-        self.rgb = np.take(self.rgb, unique_indices, axis=0)
-        self.index = np.take(self.index, unique_indices)
-        self.gps_time = np.take(self.gps_time, unique_indices)
-        self.illuminance = np.take(self.illuminance, unique_indices)
+        if self.intensity is not None:
+            self.intensity = np.take(self.intensity, unique_indices)
+        if self.rgb is not None:
+            self.rgb = np.take(self.rgb, unique_indices, axis=0)
+        if self.index is not None:
+            self.index = np.take(self.index, unique_indices)
+        if self.gps_time is not None:   
+            self.gps_time = np.take(self.gps_time, unique_indices)
+        if self.illuminance is not None:
+            self.illuminance = np.take(self.illuminance, unique_indices)
 
     def concatenate(self, data):
         dt = np.c_[self.points, self.intensity,

@@ -1,4 +1,3 @@
-
 from classes.PCD_AREA import PCD_AREA
 from classes.PCD_TREE import PCD_TREE
 import os
@@ -24,7 +23,7 @@ def make_binding_file(pc_area, ss):
     for polygon in tqdm(pc_area.polygons):
         i+=1
         pc_poly = pc_area.poly_cut(polygon, mode = 'main', returned = 'tree')
-        if pc_poly.points.shape[0]>0:
+        if pc_poly.points.shape[0]>0 and pc_poly.coordinate is not None:
             filename_out = str(i).rjust(4, '0') + '.pcd'
             filename_out = f"tree_{filename_out}"
             df = df.append({"Name_tree": filename_out, "X": pc_poly.coordinate[0], "Y": pc_poly.coordinate[1]}, ignore_index=True)

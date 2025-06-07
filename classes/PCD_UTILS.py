@@ -142,7 +142,7 @@ class PCD_UTILS:
                 continue
 
             # reconstruct a non-finite region
-            ridges = all_ridges[p1]
+            ridges = all_ridges.get(p1, [])
             new_region = [v for v in vertices if v >= 0]
 
             for p2, v1, v2 in ridges:

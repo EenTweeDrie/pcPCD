@@ -86,7 +86,9 @@ class VOR_TES(PCD):
 
     def select_borders(self, path_folder, shp_poly, verbose = False):
         print(f'Starting create Voronoi partitions ...')
+        print(self.pts)
         vor = Voronoi(self.pts)
+        print(vor)
         regions, vertices = PCD_UTILS.voronoi_finite_polygons_2d(vor)
         indice = 0
         mp = [[]]
