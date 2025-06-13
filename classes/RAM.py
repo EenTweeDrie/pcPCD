@@ -43,9 +43,12 @@ class RAM():
         return x_value, y_value
     
     def get_idnames_from_df(self, x_value, y_value):
-        name = self.combined_dataframe.loc[(abs(self.combined_dataframe['X'] - x_value) < 0.0001) & (abs(self.combined_dataframe['Y'] - y_value) < 0.0001), 'Name_tree'].values[0]
-        idnames = self.combined_dataframe.index[self.combined_dataframe['Name_tree'] == name].tolist()
-        return idnames
+        result = self.combined_dataframe.loc[(abs(self.combined_dataframe['X'] - x_value) < 0.0001) & (abs(self.combined_dataframe['Y'] - y_value) < 0.0001), 'Name_tree']
+        if not result.empty:
+            name = result.values[0]
+            idnames = self.combined_dataframe.index[self.combined_dataframe['Name_tree'] == name].tolist()
+            return idnames
+        return []
 
     def accumulating(self):
         myRAM_list = [[0,0,0,0,0]]
@@ -88,12 +91,13 @@ class RAM():
 
                             ids = self.get_idnames_from_df(points_of_trees[labels_indices][ci][0], points_of_trees[labels_indices][ci][1])
 
-                            labels_indices_list = np.arange(np_c_points.shape[0], dtype=int)
-                            labels_indices_list = np.full_like(labels_indices_list, ids[0])
-                            
-                            myRAM_l = [list(point) + [label] for point, label in zip(c_points, labels_indices_list)]
-                            myRAM_l = np.asarray(myRAM_l)
-                            myRAM_list = np.concatenate((myRAM_list, myRAM_l), axis=0)
+                            if ids:
+                                labels_indices_list = np.arange(np_c_points.shape[0], dtype=int)
+                                labels_indices_list = np.full_like(labels_indices_list, ids[0])
+                                
+                                myRAM_l = [list(point) + [label] for point, label in zip(c_points, labels_indices_list)]
+                                myRAM_l = np.asarray(myRAM_l)
+                                myRAM_list = np.concatenate((myRAM_list, myRAM_l), axis=0)
                             ci += 1
 
         myRAM_list = np.delete(myRAM_list, 0, axis=0)

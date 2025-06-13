@@ -70,7 +70,7 @@ def segmentation_vor(ss, cs, make_binding = True):
         if i<ss.first_num:
             continue
         pc_poly = pc_area.poly_cut(polygon, mode = 'main')
-        if pc_poly.points.shape[0]>0:
+        if pc_poly.points.shape[0]>0 and pc_poly.coordinate is not None:
 
             LOW = pc_poly.points.min(axis=0)[2]
             STEP = ss.STEP
